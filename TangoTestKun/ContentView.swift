@@ -8,7 +8,7 @@
 import SwiftUI
 
 //バージョン情報
-let globalVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+let globalVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
 //ビルド情報
 let globalBuildNum = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
 
