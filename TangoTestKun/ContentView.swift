@@ -22,45 +22,32 @@ struct ContentView: View {
     var body: some View {
         VStack {
             HStack(spacing: 2) {
-                Text("単語テストくん")
-                    .bold()
-                    .onTapGesture {
-                        isShowingAlert = true
-                    }
-                    .alert(isPresented: $isShowingAlert) {
-                        Alert(
-                            title: Text("単語テストくん"),
-                            message: Text("\(appVersion)(\(appBuildNum))")
-                        )
-                    }
+                titleText
                 Spacer()
-                Button(action: {
-                    tangoData.shuffle()
-                }) {
-                    Image(systemName: "shuffle")
-                }
-                Toggle(isOn: $isCheckingAnswers) {
-                    Image(systemName: isCheckingAnswers ? "pencil" : "pencil.slash")
-                }
-                .toggleStyle(.button)
-                Button(action: {
-                    isImporting = true
-                }) {
-                    Image(systemName: "folder")
-                }
+                shuffleButton
+                showAnswersToggle
+                importTangoFileButton
             }
             .padding(.horizontal, 18)
             TabView {
-                JpView(tangoData: tangoData, isCheckingAnswers: isCheckingAnswers)
-                    .tabItem {
-                        Image(systemName: "j.circle.fill")
-                        Text("日本語")
-                    }
-                EnView(tangoData: tangoData, isCheckingAnswers: isCheckingAnswers)
-                    .tabItem {
-                        Image(systemName: "e.circle.fill")
-                        Text("英語")
-                    }
+                TabContentView(
+                    tangoData: tangoData,
+                    isCheckingAnswers: isCheckingAnswers,
+                    testType: .jp
+                )
+                .tabItem {
+                    Image(systemName: "j.circle.fill")
+                    Text("日本語")
+                }
+                TabContentView(
+                    tangoData: tangoData,
+                    isCheckingAnswers: isCheckingAnswers,
+                    testType: .en
+                )
+                .tabItem {
+                    Image(systemName: "e.circle.fill")
+                    Text("英語")
+                }
             }
         }
         .fileImporter(
@@ -82,6 +69,43 @@ struct ContentView: View {
             } else {
                 print("❌File Import Failed")
             }
+        }
+    }
+
+    var titleText: some View {
+        Text("単語テストくん")
+            .bold()
+            .onTapGesture {
+                isShowingAlert = true
+            }
+            .alert(isPresented: $isShowingAlert) {
+                Alert(
+                    title: Text("単語テストくん"),
+                    message: Text("\(appVersion)(\(appBuildNum))")
+                )
+            }
+    }
+
+    var shuffleButton: some View {
+        Button(action: {
+            tangoData.shuffle()
+        }) {
+            Image(systemName: "shuffle")
+        }
+    }
+
+    var showAnswersToggle: some View {
+        Toggle(isOn: $isCheckingAnswers) {
+            Image(systemName: isCheckingAnswers ? "pencil" : "pencil.slash")
+        }
+        .toggleStyle(.button)
+    }
+
+    var importTangoFileButton: some View {
+        Button(action: {
+            isImporting = true
+        }) {
+            Image(systemName: "folder")
         }
     }
 }
