@@ -8,38 +8,30 @@
 import SwiftUI
 
 struct DocEditView: View {
+    let fileOperator = FileOperator()
+
+    let fileURL: URL
+    @State var rawText: String
+
+    @FocusState private var isEditing: Bool
+
     @Environment(\.dismiss) var dismiss
-
-    @State private var isEditing = false
-
-    let fileName: String
-    var rawText: String
-
-    @State private var textEditorContent: String
-    @FocusState private var isTextEditorFocused: Bool
-
-    init(fileName: String, rawText: String) {
-        self.fileName = fileName
-        self.rawText = rawText
-        self._textEditorContent = State(wrappedValue: rawText)
-    }
 
     var body: some View {
         NavigationStack {
-            Group {
-                TextEditor(text: $textEditorContent)
-                    .disabled(!isEditing)
-                    .focused($isTextEditorFocused)
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            Spacer()
-                            Button("完了") {
-                                isEditing = false
-                            }
+            TextEditor(text: $rawText)
+                .listRowSeparator(.hidden)
+                .focused($isEditing)
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        Button("完了") {
+                            isEditing = false
                         }
                     }
-            }
-            .navigationTitle(fileName)
+                }
+            .listStyle(.plain)
+            .navigationTitle(fileURL.lastPathComponent) //ファイル名を取得
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -51,20 +43,10 @@ struct DocEditView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-
+                        fileOperator.writeFile(atPath: fileURL, content: rawText)
+                        dismiss()
                     }) {
                         Text("保存")
-                    }
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Spacer()
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Button(action: {
-                        isEditing.toggle()
-                        isTextEditorFocused = isEditing ? true : false
-                    }) {
-                        Text(isEditing ? "完了" : "編集")
                     }
                 }
             }
@@ -74,6 +56,6 @@ struct DocEditView: View {
 
 struct DocEditView_Previews: PreviewProvider {
     static var previews: some View {
-        DocEditView(fileName: "example.txt", rawText: "こんにちは=hello\nお元気ですか=How are you")
+        DocEditView(fileURL: mockURL, rawText: "こんにちは=hello\nお元気ですか=How are you")
     }
 }

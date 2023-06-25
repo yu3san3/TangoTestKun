@@ -19,7 +19,7 @@ struct ContentView: View {
     @State private var isCheckingAnswers = false
     @State private var isShowingAlert = false
     @State private var isShowingDocEditView = false
-    @State private var fileName = "no file selected"
+    @State private var fileURL = mockURL
     @State private var rawText = "no file selected"
     
     var body: some View {
@@ -38,7 +38,7 @@ struct ContentView: View {
                 .sheet(
                     isPresented: $isShowingDocEditView,
                     content: {
-                        DocEditView(fileName: fileName, rawText: rawText)
+                        DocEditView(fileURL: fileURL, rawText: rawText)
                     }
                 )
             }
@@ -73,7 +73,7 @@ struct ContentView: View {
                 do {
                     let textURL: URL = try result.get().first!
                     if textURL.startAccessingSecurityScopedResource() {
-                        self.fileName = textURL.lastPathComponent //ファイル名を取得
+                        self.fileURL = textURL
                         self.rawText = try String(contentsOf: textURL)
                         tangoData = TangoParser.parse(rawText)
                     }
