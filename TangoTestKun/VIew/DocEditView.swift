@@ -44,6 +44,7 @@ struct DocEditView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         fileOperator.writeFile(atPath: fileURL, content: rawText)
+                        print("保存処理おわり")
                         dismiss()
                     }) {
                         Text("保存")

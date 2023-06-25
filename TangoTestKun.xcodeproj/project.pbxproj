@@ -44,6 +44,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EB64B9A22A48748B002F806E /* VIew */ = {
+			isa = PBXGroup;
+			children = (
+				EBF15BC42998D783001F63AD /* ContentView.swift */,
+				EB64B99C2A481F83002F806E /* TabContentView.swift */,
+				EB64B99E2A483169002F806E /* DocEditView.swift */,
+			);
+			path = VIew;
+			sourceTree = "<group>";
+		};
+		EB64B9A32A4874A3002F806E /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				EB64B9A02A485CAF002F806E /* FileOperator.swift */,
+				EBF15BD12998EB2D001F63AD /* TangoParser.swift */,
+				EB64B99A2A481F58002F806E /* TangoData.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		EBF15BB62998D783001F63AD = {
 			isa = PBXGroup;
 			children = (
@@ -65,12 +85,8 @@
 			children = (
 				EBF15BD329990C0A001F63AD /* Info.plist */,
 				EBF15BC22998D783001F63AD /* TangoTestKunApp.swift */,
-				EBF15BC42998D783001F63AD /* ContentView.swift */,
-				EB64B99C2A481F83002F806E /* TabContentView.swift */,
-				EB64B99E2A483169002F806E /* DocEditView.swift */,
-				EB64B9A02A485CAF002F806E /* FileOperator.swift */,
-				EBF15BD12998EB2D001F63AD /* TangoParser.swift */,
-				EB64B99A2A481F58002F806E /* TangoData.swift */,
+				EB64B9A22A48748B002F806E /* VIew */,
+				EB64B9A32A4874A3002F806E /* Other */,
 				EBF15BC62998D789001F63AD /* Assets.xcassets */,
 				EBF15BC82998D789001F63AD /* TangoTestKun.entitlements */,
 				EBF15BC92998D789001F63AD /* Preview Content */,
