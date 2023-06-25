@@ -18,6 +18,9 @@ struct ContentView: View {
     @State private var isImporting = false
     @State private var isCheckingAnswers = false
     @State private var isShowingAlert = false
+    @State private var isShowingDocEditView = false
+    @State private var fileName = "no file selected"
+    @State private var rawText = "no file selected"
     
     var body: some View {
         VStack {
@@ -27,6 +30,17 @@ struct ContentView: View {
                 shuffleButton
                 showAnswersToggle
                 importTangoFileButton
+                Button(action: {
+                    isShowingDocEditView = true
+                }) {
+                    Image(systemName: "doc.text")
+                }
+                .sheet(
+                    isPresented: $isShowingDocEditView,
+                    content: {
+                        DocEditView(fileName: fileName, rawText: rawText)
+                    }
+                )
             }
             .padding(.horizontal, 18)
             TabView {
@@ -59,8 +73,9 @@ struct ContentView: View {
                 do {
                     let textURL: URL = try result.get().first!
                     if textURL.startAccessingSecurityScopedResource() {
-                        let text = try String(contentsOf: textURL)
-                        tangoData = TangoParser.parse(text)
+                        self.fileName = textURL.lastPathComponent //ファイル名を取得
+                        self.rawText = try String(contentsOf: textURL)
+                        tangoData = TangoParser.parse(rawText)
                     }
                 } catch {
                     let nsError = error as NSError

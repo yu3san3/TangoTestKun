@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EB64B99B2A481F58002F806E /* TangoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64B99A2A481F58002F806E /* TangoData.swift */; };
 		EB64B99D2A481F83002F806E /* TabContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64B99C2A481F83002F806E /* TabContentView.swift */; };
+		EB64B99F2A483169002F806E /* DocEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64B99E2A483169002F806E /* DocEditView.swift */; };
 		EBF15BC32998D783001F63AD /* TangoTestKunApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF15BC22998D783001F63AD /* TangoTestKunApp.swift */; };
 		EBF15BC52998D783001F63AD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF15BC42998D783001F63AD /* ContentView.swift */; };
 		EBF15BC72998D789001F63AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBF15BC62998D789001F63AD /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* Begin PBXFileReference section */
 		EB64B99A2A481F58002F806E /* TangoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TangoData.swift; sourceTree = "<group>"; };
 		EB64B99C2A481F83002F806E /* TabContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabContentView.swift; sourceTree = "<group>"; };
+		EB64B99E2A483169002F806E /* DocEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocEditView.swift; sourceTree = "<group>"; };
 		EBF15BBF2998D783001F63AD /* TangoTestKun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TangoTestKun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBF15BC22998D783001F63AD /* TangoTestKunApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TangoTestKunApp.swift; sourceTree = "<group>"; };
 		EBF15BC42998D783001F63AD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				EBF15BC22998D783001F63AD /* TangoTestKunApp.swift */,
 				EBF15BC42998D783001F63AD /* ContentView.swift */,
 				EB64B99C2A481F83002F806E /* TabContentView.swift */,
+				EB64B99E2A483169002F806E /* DocEditView.swift */,
 				EBF15BD12998EB2D001F63AD /* TangoParser.swift */,
 				EB64B99A2A481F58002F806E /* TangoData.swift */,
 				EBF15BC62998D789001F63AD /* Assets.xcassets */,
@@ -151,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBF15BC52998D783001F63AD /* ContentView.swift in Sources */,
+				EB64B99F2A483169002F806E /* DocEditView.swift in Sources */,
 				EB64B99B2A481F58002F806E /* TangoData.swift in Sources */,
 				EB64B99D2A481F83002F806E /* TabContentView.swift in Sources */,
 				EBF15BC32998D783001F63AD /* TangoTestKunApp.swift in Sources */,
