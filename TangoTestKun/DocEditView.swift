@@ -15,22 +15,29 @@ struct DocEditView: View {
     let fileName: String
     var rawText: String
 
+    @State private var textEditorContent: String
+    @FocusState private var isTextEditorFocused: Bool
+
+    init(fileName: String, rawText: String) {
+        self.fileName = fileName
+        self.rawText = rawText
+        self._textEditorContent = State(wrappedValue: rawText)
+    }
+
     var body: some View {
         NavigationStack {
             Group {
-                if isEditing {
-                    Text("abc")
-                } else {
-                    ScrollView {
-                        VStack {
-                            HStack {
-                                Text(rawText)
-                                Spacer()
-                            }
+                TextEditor(text: $textEditorContent)
+                    .disabled(!isEditing)
+                    .focused($isTextEditorFocused)
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
                             Spacer()
+                            Button("完了") {
+                                isEditing = false
+                            }
                         }
                     }
-                }
             }
             .navigationTitle(fileName)
             .navigationBarTitleDisplayMode(.inline)
@@ -55,6 +62,7 @@ struct DocEditView: View {
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
                         isEditing.toggle()
+                        isTextEditorFocused = isEditing ? true : false
                     }) {
                         Text(isEditing ? "完了" : "編集")
                     }
