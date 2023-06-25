@@ -8,9 +8,9 @@
 import SwiftUI
 
 //バージョン情報
-let globalVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
+let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
 //ビルド情報
-let globalBuildNum = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
+let appBuildNum = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
 
 struct ContentView: View {
     
@@ -30,7 +30,7 @@ struct ContentView: View {
                     .alert(isPresented: $isShowingAlert) {
                         Alert(
                             title: Text("単語テストくん"),
-                            message: Text("\(globalVersion)(\(globalBuildNum))")
+                            message: Text("\(appVersion)(\(appBuildNum))")
                         )
                     }
                 Spacer()
@@ -73,7 +73,7 @@ struct ContentView: View {
                     let textURL: URL = try result.get().first!
                     if textURL.startAccessingSecurityScopedResource() {
                         let text = try String(contentsOf: textURL)
-                        tangoData = Tango.parse(text)
+                        tangoData = TangoParser.parse(text)
                     }
                 } catch {
                     let nsError = error as NSError
@@ -82,54 +82,6 @@ struct ContentView: View {
             } else {
                 print("❌File Import Failed")
             }
-        }
-    }
-}
-
-struct JpView: View {
-    let tangoData: [TangoData]
-    let isCheckingAnswers: Bool
-    
-    var body: some View {
-        if tangoData.isEmpty {
-            Text("単語データが選択されていません。")
-                .foregroundColor(.gray)
-        } else {
-            List(0..<tangoData.count, id: \.self) { index in
-                HStack {
-                    Image(systemName: "\(index+1).circle")
-                    Text(tangoData[index].jp)
-                    if isCheckingAnswers {
-                        Spacer()
-                        Text(tangoData[index].en)
-                    }
-                }
-            }
-            .listStyle(.plain)
-        }
-    }
-}
-
-struct EnView: View {
-    let tangoData: [TangoData]
-    let isCheckingAnswers: Bool
-    
-    var body: some View {
-        if tangoData.isEmpty {
-            Text("単語データが選択されていません。")
-                .foregroundColor(.gray)
-        } else {
-            List(0..<tangoData.count, id: \.self) { index in
-                HStack {
-                    Image(systemName: "\(index+1).circle")
-                    Text(tangoData[index].en)
-                    if isCheckingAnswers {
-                        Spacer()
-                        Text(tangoData[index].jp)
-                    }
-                }
-            }
-            .listStyle(.plain)
         }
     }
 }

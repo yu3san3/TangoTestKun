@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Tango {
+class TangoParser {
     static func parse(_ text: String) -> [TangoData] {
         
         var result: [TangoData] = []
@@ -30,11 +30,4 @@ class Tango {
         result.removeLast() //余分な空の要素を削除
         return result
     }
-}
-
-//ここから下はオブジェクトの定義
-
-struct TangoData: Hashable {
-    var jp: String
-    var en: String
 }
