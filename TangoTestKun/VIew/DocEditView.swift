@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct DocEditView: View {
+    @ObservedObject var tangoModel: TangoModel
     let fileOperator = FileOperator()
 
-    let fileURL: URL
-    @State var rawText: String
-
+    @State var textEditorContent: String = ""
     @FocusState private var isEditing: Bool
 
     @Environment(\.dismiss) var dismiss
 
+    init(tangoModel: TangoModel) {
+        self.tangoModel = tangoModel
+        self._textEditorContent = State(initialValue: tangoModel.rawText)
+    }
+
     var body: some View {
         NavigationStack {
-            TextEditor(text: $rawText)
+            TextEditor(text: $textEditorContent)
                 .listRowSeparator(.hidden)
                 .focused($isEditing)
                 .toolbar {
@@ -30,8 +34,8 @@ struct DocEditView: View {
                         }
                     }
                 }
-            .listStyle(.plain)
-            .navigationTitle(fileURL.lastPathComponent) //ファイル名を取得
+                .listStyle(.plain)
+            .navigationTitle(tangoModel.fileURL.lastPathComponent) //ファイル名を取得
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -43,7 +47,9 @@ struct DocEditView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        fileOperator.writeFile(atPath: fileURL, content: rawText)
+                        tangoModel.rawText = textEditorContent
+                        tangoModel.tangoData = TangoParser.parse(textEditorContent)
+                        fileOperator.writeFile(atPath: tangoModel.fileURL, content: textEditorContent)
                         print("保存処理おわり")
                         dismiss()
                     }) {
@@ -57,6 +63,6 @@ struct DocEditView: View {
 
 struct DocEditView_Previews: PreviewProvider {
     static var previews: some View {
-        DocEditView(fileURL: mockURL, rawText: "こんにちは=hello\nお元気ですか=How are you")
+        DocEditView(tangoModel: TangoModel())
     }
 }

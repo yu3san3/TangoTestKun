@@ -13,14 +13,13 @@ let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! S
 let appBuildNum = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
 
 struct ContentView: View {
+
+    @StateObject var tangoModel = TangoModel()
     
-    @State private var tangoData: [TangoData] = []
     @State private var isImporting = false
     @State private var isCheckingAnswers = false
     @State private var isShowingAlert = false
     @State private var isShowingDocEditView = false
-    @State private var fileURL = mockURL
-    @State private var rawText = "no file selected"
     
     var body: some View {
         VStack {
@@ -38,14 +37,14 @@ struct ContentView: View {
                 .sheet(
                     isPresented: $isShowingDocEditView,
                     content: {
-                        DocEditView(fileURL: fileURL, rawText: rawText)
+                        DocEditView(tangoModel: tangoModel)
                     }
                 )
             }
             .padding(.horizontal, 18)
             TabView {
                 TabContentView(
-                    tangoData: tangoData,
+                    tangoData: tangoModel.tangoData,
                     isCheckingAnswers: isCheckingAnswers,
                     testType: .jp
                 )
@@ -54,7 +53,7 @@ struct ContentView: View {
                     Text("日本語")
                 }
                 TabContentView(
-                    tangoData: tangoData,
+                    tangoData: tangoModel.tangoData,
                     isCheckingAnswers: isCheckingAnswers,
                     testType: .en
                 )
@@ -73,9 +72,9 @@ struct ContentView: View {
                 do {
                     let textURL: URL = try result.get().first!
                     if textURL.startAccessingSecurityScopedResource() {
-                        self.fileURL = textURL
-                        self.rawText = try String(contentsOf: textURL)
-                        tangoData = TangoParser.parse(rawText)
+                        tangoModel.fileURL = textURL
+                        tangoModel.rawText = try String(contentsOf: textURL)
+                        tangoModel.tangoData = TangoParser.parse(tangoModel.rawText)
                     }
                 } catch {
                     let nsError = error as NSError
@@ -103,7 +102,7 @@ struct ContentView: View {
 
     var shuffleButton: some View {
         Button(action: {
-            tangoData.shuffle()
+            tangoModel.tangoData.shuffle()
         }) {
             Image(systemName: "shuffle")
         }

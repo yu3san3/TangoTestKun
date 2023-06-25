@@ -18,7 +18,7 @@ class FileOperator {
         do {
             try content.write(to: path, atomically: true, encoding: .utf8)
         } catch {
-            print("書き込み失敗")
+            print("書き込み失敗: \(error.localizedDescription)")
         }
     }
 }
