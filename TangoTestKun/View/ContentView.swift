@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-//バージョン情報
 let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
-//ビルド情報
 let appBuildNum = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
 
 struct ContentView: View {
@@ -42,7 +40,7 @@ struct ContentView: View {
                 .sheet(
                     isPresented: $isShowingFileEditView,
                     content: {
-                        FileEditView(tangoModel: nowEditingFile)
+                        FileEditView(tangoData: nowEditingFile)
                     }
                 )
                 Button(action: {
@@ -53,8 +51,7 @@ struct ContentView: View {
                 .sheet(
                     isPresented: $isShowingNewFileEditView,
                     content: {
-                        let newTangoData = TangoData()
-                        FileEditView(tangoModel: newTangoData)
+                        FileEditView()
                     }
                 )
             }

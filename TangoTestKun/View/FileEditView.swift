@@ -7,18 +7,33 @@
 
 import SwiftUI
 
+enum EditMode {
+    case existingFile
+    case newFile
+}
+
 struct FileEditView: View {
-    @ObservedObject var tangoModel: TangoData
+    @ObservedObject var tangoData: TangoData
+
     let fileOperator = FileOperator()
 
     @State var textEditorContent: String = ""
     @FocusState private var isEditing: Bool
 
+    let editMode: EditMode
+
     @Environment(\.dismiss) var dismiss
 
-    init(tangoModel: TangoData) {
-        self.tangoModel = tangoModel
-        self._textEditorContent = State(initialValue: tangoModel.rawText)
+    init(tangoData: TangoData) {
+        self.editMode = .existingFile
+        self.tangoData = tangoData
+        self._textEditorContent = State(initialValue: tangoData.rawText)
+    }
+
+    init() {
+        let newTangoData = TangoData()
+        self.editMode = .newFile
+        self.tangoData = newTangoData
     }
 
     var body: some View {
@@ -35,7 +50,7 @@ struct FileEditView: View {
                     }
                 }
                 .listStyle(.plain)
-            .navigationTitle(tangoModel.fileURL.lastPathComponent) //ファイル名を取得
+            .navigationTitle(tangoData.fileURL.lastPathComponent) //ファイル名を取得
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -47,9 +62,14 @@ struct FileEditView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        tangoModel.rawText = textEditorContent
-                        tangoModel.tangoData = TangoParser.parse(textEditorContent)
-                        fileOperator.writeFile(atPath: tangoModel.fileURL, content: textEditorContent)
+                        switch editMode {
+                        case .existingFile:
+                            tangoData.rawText = textEditorContent
+                            tangoData.tangoData = TangoParser.parse(textEditorContent)
+                            fileOperator.writeFile(atPath: tangoData.fileURL, content: textEditorContent)
+                        case .newFile:
+                            print("新規ファイル保存処理")
+                        }
                         print("保存処理おわり")
                         dismiss()
                     }) {
@@ -63,6 +83,11 @@ struct FileEditView: View {
 
 struct DocEditView_Previews: PreviewProvider {
     static var previews: some View {
-        FileEditView(tangoModel: TangoData())
+        let tangoData = TangoData(
+            tangoData: TangoData.mockTangoData,
+            fileURL: TangoData.mockURL,
+            rawText: TangoData.mockRawText
+        )
+        FileEditView(tangoData: tangoData)
     }
 }
