@@ -7,8 +7,8 @@
 
 import Foundation
 
-class TangoModel: ObservableObject {
-    @Published var tangoData: [TangoData] = []
+class TangoData: ObservableObject {
+    @Published var tangoData: [TangoDataElement] = []
     @Published var fileURL = mockURL
     @Published var rawText = "no file selected"
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TabContentView: View {
-    let tangoData: [TangoData]
+    let tangoData: [TangoDataElement]
     let isCheckingAnswers: Bool
     let testType: TestType
 

@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct DocEditView: View {
-    @ObservedObject var tangoModel: TangoModel
+struct FileEditView: View {
+    @ObservedObject var tangoModel: TangoData
     let fileOperator = FileOperator()
 
     @State var textEditorContent: String = ""
@@ -16,7 +16,7 @@ struct DocEditView: View {
 
     @Environment(\.dismiss) var dismiss
 
-    init(tangoModel: TangoModel) {
+    init(tangoModel: TangoData) {
         self.tangoModel = tangoModel
         self._textEditorContent = State(initialValue: tangoModel.rawText)
     }
@@ -63,6 +63,6 @@ struct DocEditView: View {
 
 struct DocEditView_Previews: PreviewProvider {
     static var previews: some View {
-        DocEditView(tangoModel: TangoModel())
+        FileEditView(tangoModel: TangoData())
     }
 }

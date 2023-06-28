@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TangoData: Hashable {
+struct TangoDataElement: Hashable {
     var jp: String
     var en: String
 }

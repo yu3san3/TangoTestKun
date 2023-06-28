@@ -14,7 +14,7 @@ let appBuildNum = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
 
 struct ContentView: View {
 
-    @StateObject var tangoModel = TangoModel()
+    @StateObject var nowEditingFile = TangoData()
     
     @State private var isImporting = false
     @State private var isCheckingAnswers = false
@@ -37,14 +37,14 @@ struct ContentView: View {
                 .sheet(
                     isPresented: $isShowingDocEditView,
                     content: {
-                        DocEditView(tangoModel: tangoModel)
+                        FileEditView(tangoModel: nowEditingFile)
                     }
                 )
             }
             .padding(.horizontal, 18)
             TabView {
                 TabContentView(
-                    tangoData: tangoModel.tangoData,
+                    tangoData: nowEditingFile.tangoData,
                     isCheckingAnswers: isCheckingAnswers,
                     testType: .jp
                 )
@@ -53,7 +53,7 @@ struct ContentView: View {
                     Text("日本語")
                 }
                 TabContentView(
-                    tangoData: tangoModel.tangoData,
+                    tangoData: nowEditingFile.tangoData,
                     isCheckingAnswers: isCheckingAnswers,
                     testType: .en
                 )
@@ -72,9 +72,9 @@ struct ContentView: View {
                 do {
                     let textURL: URL = try result.get().first!
                     if textURL.startAccessingSecurityScopedResource() {
-                        tangoModel.fileURL = textURL
-                        tangoModel.rawText = try String(contentsOf: textURL)
-                        tangoModel.tangoData = TangoParser.parse(tangoModel.rawText)
+                        nowEditingFile.fileURL = textURL
+                        nowEditingFile.rawText = try String(contentsOf: textURL)
+                        nowEditingFile.tangoData = TangoParser.parse(nowEditingFile.rawText)
                     }
                 } catch {
                     let nsError = error as NSError
@@ -102,7 +102,7 @@ struct ContentView: View {
 
     var shuffleButton: some View {
         Button(action: {
-            tangoModel.tangoData.shuffle()
+            nowEditingFile.tangoData.shuffle()
         }) {
             Image(systemName: "shuffle")
         }
