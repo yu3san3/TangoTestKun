@@ -9,9 +9,25 @@ import Foundation
 
 class FileOperator {
     private let fileManager = FileManager.default
+    private let rootDirectory = NSHomeDirectory() + "/Documents/hoge"
+
+    init() {
+        createDirectory(atPath: rootDirectory)
+    }
 
     func isFileExisting(atPath path: String) -> Bool {
         return fileManager.fileExists(atPath: path)
+    }
+
+    func createDirectory(atPath path: String) {
+        if isFileExisting(atPath: path) {
+            return
+        }
+        do {
+            try fileManager.createDirectory(atPath: path, withIntermediateDirectories: false, attributes: nil)
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
 
     func writeFile(atPath path: URL, content: String) {

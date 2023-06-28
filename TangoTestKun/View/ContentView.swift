@@ -14,12 +14,17 @@ let appBuildNum = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
 
 struct ContentView: View {
 
-    @StateObject var nowEditingFile = TangoData()
+    @StateObject var nowEditingFile = TangoData(
+        tangoData: [],
+        fileURL: TangoData.mockURL,
+        rawText: "ファイルが選ばれていません"
+    )
     
     @State private var isImporting = false
     @State private var isCheckingAnswers = false
     @State private var isShowingAlert = false
-    @State private var isShowingDocEditView = false
+    @State private var isShowingFileEditView = false
+    @State private var isShowingNewFileEditView = false
     
     var body: some View {
         VStack {
@@ -30,14 +35,26 @@ struct ContentView: View {
                 showAnswersToggle
                 importTangoFileButton
                 Button(action: {
-                    isShowingDocEditView = true
+                    isShowingFileEditView = true
                 }) {
                     Image(systemName: "doc.text")
                 }
                 .sheet(
-                    isPresented: $isShowingDocEditView,
+                    isPresented: $isShowingFileEditView,
                     content: {
                         FileEditView(tangoModel: nowEditingFile)
+                    }
+                )
+                Button(action: {
+                    isShowingNewFileEditView = true
+                }) {
+                    Image(systemName: "plus")
+                }
+                .sheet(
+                    isPresented: $isShowingNewFileEditView,
+                    content: {
+                        let newTangoData = TangoData()
+                        FileEditView(tangoModel: newTangoData)
                     }
                 )
             }

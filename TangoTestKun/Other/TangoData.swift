@@ -12,10 +12,16 @@ class TangoData: ObservableObject {
     @Published var fileURL: URL
     @Published var rawText: String
 
+    init(tangoData: [TangoDataElement], fileURL: URL, rawText: String) {
+        self.tangoData = tangoData
+        self.fileURL = fileURL
+        self.rawText = rawText
+    }
+
     init() {
         self.tangoData = []
         self.fileURL = TangoData.mockURL
-        self.rawText = "ファイルが選ばれていません"
+        self.rawText = ""
     }
 }
 
