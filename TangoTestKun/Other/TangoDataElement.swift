@@ -1,8 +1,8 @@
 //
-//  TangoData.swift
+//  TangoDataElement.swift
 //  TangoTestKun
 //
-//  Created by 丹羽雄一朗 on 2023/06/25.
+//  Created by 丹羽雄一朗 on 2023/06/28.
 //
 
 import Foundation
@@ -12,7 +12,7 @@ struct TangoDataElement: Hashable {
     var en: String
 }
 
-let mockTangoData = TangoParser.parse(
+let mockRawText =
 """
 起動する、開始する=launch
 意図=intent
@@ -25,4 +25,3 @@ let mockTangoData = TangoParser.parse(
 整列、調整=alignment
 半径=radius
 """
-)
