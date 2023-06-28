@@ -46,13 +46,9 @@ struct TabContentView: View {
     }
 }
 
-enum TestType {
-    case jp
-    case en
-}
-
 struct TabContentView_Previews: PreviewProvider {
     static var previews: some View {
         TabContentView(tangoData: TangoData.mockTangoData, isCheckingAnswers: false, testType: .jp)
     }
 }
+
