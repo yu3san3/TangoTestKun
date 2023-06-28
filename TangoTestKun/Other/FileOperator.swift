@@ -22,6 +22,3 @@ class FileOperator {
         }
     }
 }
-
-let str =  NSHomeDirectory() + "/Documents"
-let mockURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!

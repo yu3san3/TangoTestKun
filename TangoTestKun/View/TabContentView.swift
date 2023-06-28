@@ -53,6 +53,6 @@ enum TestType {
 
 struct TabContentView_Previews: PreviewProvider {
     static var previews: some View {
-        TabContentView(tangoData: mockTangoData, isCheckingAnswers: false, testType: .jp)
+        TabContentView(tangoData: TangoData.mockTangoData, isCheckingAnswers: false, testType: .jp)
     }
 }
