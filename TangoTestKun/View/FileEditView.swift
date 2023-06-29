@@ -13,7 +13,7 @@ enum EditMode {
 }
 
 struct FileEditView: View {
-    @ObservedObject var tangoData: TangoData
+    @ObservedObject var nowEditingFile: TangoData
 
     let fileOperator = FileOperator()
 
@@ -27,68 +27,83 @@ struct FileEditView: View {
 
     init(tangoData: TangoData) {
         self.editMode = .existingFile
-        self.tangoData = tangoData
+        self.nowEditingFile = tangoData
         self._textEditorContent = State(initialValue: tangoData.rawText)
     }
 
     init() {
         let newTangoData = TangoData()
         self.editMode = .newFile
-        self.tangoData = newTangoData
+        self.nowEditingFile = newTangoData
     }
 
     var body: some View {
         NavigationStack {
-            TextEditor(text: $textEditorContent)
-                .listRowSeparator(.hidden)
-                .focused($isEditing)
-                .toolbar {
-                    ToolbarItemGroup(placement: .keyboard) {
-                        Spacer()
-                        Button("完了") {
-                            isEditing = false
-                        }
-                    }
-                }
-                .listStyle(.plain)            .navigationTitle(tangoData.fileURL.lastPathComponent) //ファイル名を取得
-                .navigationBarTitleDisplayMode(.inline)
+            textEditor
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
-                            dismiss()
-                        }) {
-                        Text("キャンセル")
+                        cancelButton
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        saveButton
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        switch editMode {
-                        case .existingFile:
-                            tangoData.rawText = textEditorContent
-                            tangoData.tangoData = TangoParser.parse(textEditorContent)
-                            fileOperator.writeFile(atPath: tangoData.fileURL, content: textEditorContent)
-                        case .newFile:
-                            isExporting = true
-                        }
-                    }) {
-                        Text("保存")
+                .navigationTitle(nowEditingFile.fileURL.lastPathComponent) //ファイル名を取得
+                .navigationBarTitleDisplayMode(.inline)
+                .fileExporter(
+                    isPresented: $isExporting,
+                    document: TangoFile(initialText: textEditorContent),
+                    contentType: .plainText,
+                    defaultFilename: "NewFile"
+                ) { result in
+                    if case .success = result {
+                        print("Success!")
+                    } else {
+                        print("Something went wrong…")
                     }
+                    dismiss()
                 }
-            }
-            .fileExporter(
-                isPresented: $isExporting,
-                document: TangoFile(initialText: textEditorContent),
-                contentType: .plainText,
-                defaultFilename: "NewFile"
-            ) { result in
-                if case .success = result {
-                    print("Success!")
-                } else {
-                    print("Something went wrong…")
-                }
-                dismiss()
-            }
         }
+    }
+
+    var textEditor: some View {
+        TextEditor(text: $textEditorContent)
+            .focused($isEditing)
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("完了") {
+                        isEditing = false
+                    }
+                }
+            }
+    }
+
+    var cancelButton: some View {
+        Button(action: {
+            dismiss()
+        }) {
+            Text("キャンセル")
+        }
+    }
+
+    var saveButton: some View {
+        Button(action: {
+            switch editMode {
+            case .existingFile:
+                saveExistingFile()
+            case .newFile:
+                isExporting = true
+            }
+        }) {
+            Text("保存")
+        }
+    }
+
+    private func saveExistingFile() {
+        nowEditingFile.rawText = textEditorContent
+        nowEditingFile.tangoData = TangoParser.parse(textEditorContent)
+        fileOperator.writeFile(atPath: nowEditingFile.fileURL, content: textEditorContent)
     }
 }
 

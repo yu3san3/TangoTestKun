@@ -32,28 +32,20 @@ struct ContentView: View {
                 shuffleButton
                 showAnswersToggle
                 importTangoFileButton
-                Button(action: {
-                    isShowingFileEditView = true
-                }) {
-                    Image(systemName: "doc.text")
-                }
-                .sheet(
-                    isPresented: $isShowingFileEditView,
-                    content: {
-                        FileEditView(tangoData: nowEditingFile)
-                    }
-                )
-                Button(action: {
-                    isShowingNewFileEditView = true
-                }) {
-                    Image(systemName: "plus")
-                }
-                .sheet(
-                    isPresented: $isShowingNewFileEditView,
-                    content: {
-                        FileEditView()
-                    }
-                )
+                editExistingFileButton
+                    .sheet(
+                        isPresented: $isShowingFileEditView,
+                        content: {
+                            FileEditView(tangoData: nowEditingFile)
+                        }
+                    )
+                createNewFileButton
+                    .sheet(
+                        isPresented: $isShowingNewFileEditView,
+                        content: {
+                            FileEditView()
+                        }
+                    )
             }
             .padding(.horizontal, 18)
             TabView {
@@ -82,22 +74,25 @@ struct ContentView: View {
             allowedContentTypes: [.plainText],
             allowsMultipleSelection: false
         ) { result in
-            if case .success = result {
-                do {
-                    let textURL: URL = try result.get().first!
-                    if textURL.startAccessingSecurityScopedResource() {
-                        nowEditingFile.fileURL = textURL
-                        nowEditingFile.rawText = try String(contentsOf: textURL)
-                        nowEditingFile.tangoData = TangoParser.parse(nowEditingFile.rawText)
-                    }
-                } catch {
-                    let nsError = error as NSError
-                    fatalError("File Import Error \(nsError), \(nsError.userInfo)")
+            do {
+                guard let selectedFileURL: URL = try result.get().first else {
+                    return
                 }
-            } else {
-                print("❌File Import Failed")
+                guard selectedFileURL.startAccessingSecurityScopedResource() else {
+                    return
+                }
+                try setNowEditingFile(from: selectedFileURL)
+                selectedFileURL.stopAccessingSecurityScopedResource()
+            } catch {
+                print(error.localizedDescription)
             }
         }
+    }
+
+    private func setNowEditingFile(from selectedFileURL: URL) throws {
+        nowEditingFile.fileURL = selectedFileURL
+        nowEditingFile.rawText = try String(contentsOf: selectedFileURL)
+        nowEditingFile.tangoData = TangoParser.parse(nowEditingFile.rawText)
     }
 
     var titleText: some View {
@@ -134,6 +129,22 @@ struct ContentView: View {
             isImporting = true
         }) {
             Image(systemName: "folder")
+        }
+    }
+
+    var editExistingFileButton: some View {
+        Button(action: {
+            isShowingFileEditView = true
+        }) {
+            Image(systemName: "doc.text")
+        }
+    }
+
+    var createNewFileButton: some View {
+        Button(action: {
+            isShowingNewFileEditView = true
+        }) {
+            Image(systemName: "plus")
         }
     }
 }
