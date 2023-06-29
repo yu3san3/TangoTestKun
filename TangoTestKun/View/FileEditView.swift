@@ -17,6 +17,7 @@ struct FileEditView: View {
 
     let fileOperator = FileOperator()
 
+    @State var isExporting: Bool = false
     @State var textEditorContent: String = ""
     @FocusState private var isEditing: Bool
 
@@ -49,14 +50,13 @@ struct FileEditView: View {
                         }
                     }
                 }
-                .listStyle(.plain)
-            .navigationTitle(tangoData.fileURL.lastPathComponent) //ファイル名を取得
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        dismiss()
-                    }) {
+                .listStyle(.plain)            .navigationTitle(tangoData.fileURL.lastPathComponent) //ファイル名を取得
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            dismiss()
+                        }) {
                         Text("キャンセル")
                     }
                 }
@@ -68,14 +68,25 @@ struct FileEditView: View {
                             tangoData.tangoData = TangoParser.parse(textEditorContent)
                             fileOperator.writeFile(atPath: tangoData.fileURL, content: textEditorContent)
                         case .newFile:
-                            print("新規ファイル保存処理")
+                            isExporting = true
                         }
-                        print("保存処理おわり")
-                        dismiss()
                     }) {
                         Text("保存")
                     }
                 }
+            }
+            .fileExporter(
+                isPresented: $isExporting,
+                document: TangoFile(initialText: textEditorContent),
+                contentType: .plainText,
+                defaultFilename: "NewFile"
+            ) { result in
+                if case .success = result {
+                    print("Success!")
+                } else {
+                    print("Something went wrong…")
+                }
+                dismiss()
             }
         }
     }
