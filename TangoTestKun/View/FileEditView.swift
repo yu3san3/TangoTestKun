@@ -13,13 +13,13 @@ enum EditMode {
 }
 
 struct FileEditView: View {
-    @ObservedObject var nowEditingFile: TangoData
-
-    @State var isExporting: Bool = false
-    @State var textEditorContent: String = ""
-    @FocusState private var isEditing: Bool
-
     let editMode: EditMode
+    @ObservedObject var nowEditingFile: TangoData
+    @State private var textEditorContent: String
+
+    @State private var isExporting = false
+    @State private var isShowingDismissAlert = false
+    @FocusState private var isEditing: Bool
 
     @Environment(\.dismiss) var dismiss
 
@@ -31,8 +31,10 @@ struct FileEditView: View {
 
     init() {
         let newTangoData = TangoData()
+
         self.editMode = .newFile
         self.nowEditingFile = newTangoData
+        self._textEditorContent = State(initialValue: "")
     }
 
     var body: some View {
@@ -81,9 +83,19 @@ private extension FileEditView {
 
     var cancelButton: some View {
         Button(action: {
-            dismiss()
+            guard textEditorContent != nowEditingFile.rawText else {
+                dismiss()
+                return
+            }
+            isShowingDismissAlert = true
         }) {
             Text("キャンセル")
+        }
+        .alert("本当に戻りますか？", isPresented: $isShowingDismissAlert) {
+            Button("はい", role: .destructive) { dismiss() }
+            Button("いいえ", role: .cancel) {}
+        } message: {
+            Text("「はい」を押すと、今までの編集内容は保存されません。")
         }
     }
 
