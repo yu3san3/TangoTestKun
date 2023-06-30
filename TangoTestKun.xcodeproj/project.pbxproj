@@ -50,6 +50,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EB49811A2A4F18930048DDF8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EB64B9A42A487660002F806E /* TangoData.swift */,
+				EBACC7582A4C794F00C1A1D1 /* TangoDataElement.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		EB64B9A22A48748B002F806E /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -64,8 +73,6 @@
 			isa = PBXGroup;
 			children = (
 				EB4981182A4DDB390048DDF8 /* TangoFile.swift */,
-				EB64B9A42A487660002F806E /* TangoData.swift */,
-				EBACC7582A4C794F00C1A1D1 /* TangoDataElement.swift */,
 				EBACC75A2A4C86D600C1A1D1 /* TestType.swift */,
 				EB64B9A02A485CAF002F806E /* FileOperator.swift */,
 				EBF15BD12998EB2D001F63AD /* TangoParser.swift */,
@@ -95,6 +102,7 @@
 				EBF15BD329990C0A001F63AD /* Info.plist */,
 				EBF15BC22998D783001F63AD /* TangoTestKunApp.swift */,
 				EB64B9A22A48748B002F806E /* View */,
+				EB49811A2A4F18930048DDF8 /* Model */,
 				EB64B9A32A4874A3002F806E /* Other */,
 				EBF15BC62998D789001F63AD /* Assets.xcassets */,
 				EBF15BC82998D789001F63AD /* TangoTestKun.entitlements */,
