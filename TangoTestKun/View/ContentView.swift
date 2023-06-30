@@ -21,7 +21,7 @@ struct ContentView: View {
     @State private var isImporting = false
     @State private var isCheckingAnswers = false
     @State private var isShowingAlert = false
-    @State private var isShowingFileEditView = false
+    @State private var isShowingExistingFileEditView = false
     @State private var isShowingNewFileEditView = false
 
     var body: some View {
@@ -31,21 +31,28 @@ struct ContentView: View {
                 Spacer()
                 shuffleButton
                 showAnswersToggle
-                importTangoFileButton
-                editExistingFileButton
-                    .sheet(
-                        isPresented: $isShowingFileEditView,
-                        content: {
-                            FileEditView(tangoData: nowEditingFile)
-                        }
-                    )
-                createNewFileButton
-                    .sheet(
-                        isPresented: $isShowingNewFileEditView,
-                        content: {
-                            FileEditView()
-                        }
-                    )
+                Menu {
+                    importTangoFileButton
+                    if !nowEditingFile.tangoData.isEmpty {
+                        editExistingFileButton
+                    }
+                    createNewFileButton
+                } label: {
+                    Label("フォルダ", systemImage: "folder")
+                        .labelStyle(.iconOnly)
+                }
+                .sheet(
+                    isPresented: $isShowingExistingFileEditView,
+                    content: {
+                        FileEditView(tangoData: nowEditingFile)
+                    }
+                )
+                .sheet(
+                    isPresented: $isShowingNewFileEditView,
+                    content: {
+                        FileEditView()
+                    }
+                )
             }
             .padding(.horizontal, 18)
             TabView {
@@ -132,15 +139,15 @@ struct ContentView: View {
         Button(action: {
             isImporting = true
         }) {
-            Image(systemName: "folder")
+            Label("読み込み", systemImage: "folder")
         }
     }
 
     var editExistingFileButton: some View {
         Button(action: {
-            isShowingFileEditView = true
+            isShowingExistingFileEditView = true
         }) {
-            Image(systemName: "doc.text")
+            Label("編集", systemImage: "doc.text")
         }
     }
 
@@ -148,7 +155,7 @@ struct ContentView: View {
         Button(action: {
             isShowingNewFileEditView = true
         }) {
-            Image(systemName: "plus")
+            Label("新規作成", systemImage: "plus")
         }
     }
 }
