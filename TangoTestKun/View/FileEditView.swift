@@ -55,9 +55,9 @@ struct FileEditView: View {
                     defaultFilename: "NewFile"
                 ) { result in
                     if case .success = result {
-                        print("Success!")
+                        print("正常に出力されました")
                     } else {
-                        print("Something went wrong…")
+                        print("出力できませんでした")
                     }
                     dismiss()
                 }
