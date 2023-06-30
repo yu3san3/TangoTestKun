@@ -63,7 +63,9 @@ struct FileEditView: View {
                 }
         }
     }
+}
 
+private extension FileEditView {
     var textEditor: some View {
         TextEditor(text: $textEditorContent)
             .focused($isEditing)
@@ -98,7 +100,7 @@ struct FileEditView: View {
         }
     }
 
-    private func saveExistingFile(textContent: String) {
+    func saveExistingFile(textContent: String) {
         let fileOperator = FileOperator()
         nowEditingFile.rawText = textContent
         nowEditingFile.tangoData = TangoParser.parse(textContent)

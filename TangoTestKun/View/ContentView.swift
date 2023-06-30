@@ -74,8 +74,10 @@ struct ContentView: View {
         nowEditingFile.rawText = try String(contentsOf: selectedFileURL)
         nowEditingFile.tangoData = TangoParser.parse(nowEditingFile.rawText)
     }
+}
 
-    private var header: some View {
+private extension ContentView {
+    var header: some View {
         HStack {
             titleText
             Spacer()
@@ -96,7 +98,7 @@ struct ContentView: View {
         .padding(.horizontal, 18)
     }
 
-    private var titleText: some View {
+    var titleText: some View {
         Text("単語テストくん")
             .bold()
             .onTapGesture {
@@ -110,7 +112,7 @@ struct ContentView: View {
             }
     }
 
-    private var fileMenu: some View {
+    var fileMenu: some View {
         Menu {
             importTangoFileButton
             if !nowEditingFile.tangoData.isEmpty {
@@ -123,7 +125,7 @@ struct ContentView: View {
         }
     }
 
-    private var importTangoFileButton: some View {
+    var importTangoFileButton: some View {
         Button(action: {
             isImporting = true
         }) {
@@ -131,7 +133,7 @@ struct ContentView: View {
         }
     }
 
-    private var editExistingFileButton: some View {
+    var editExistingFileButton: some View {
         Button(action: {
             isShowingExistingFileEditView = true
         }) {
@@ -139,7 +141,7 @@ struct ContentView: View {
         }
     }
 
-    private var createNewFileButton: some View {
+    var createNewFileButton: some View {
         Button(action: {
             isShowingNewFileEditView = true
         }) {

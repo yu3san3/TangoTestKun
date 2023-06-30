@@ -23,8 +23,10 @@ struct TangoTestView: View {
             }
         }
     }
+}
 
-    private var testContentList: some View {
+private extension TangoTestView {
+    var testContentList: some View {
         List(0..<tangoData.endIndex, id: \.self) { index in
             HStack {
                 Image(systemName: "\(index+1).circle")
@@ -48,7 +50,7 @@ struct TangoTestView: View {
         .listStyle(.plain)
     }
 
-    private var bottomButton: some View {
+    var bottomButton: some View {
         HStack(spacing: 0) {
             shuffleButton
             Divider()
@@ -65,7 +67,7 @@ struct TangoTestView: View {
         .padding(.vertical, 30)
     }
 
-    private var shuffleButton: some View {
+    var shuffleButton: some View {
         Button(action: {
             tangoData.shuffle()
         }) {
