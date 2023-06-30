@@ -17,9 +17,10 @@ struct ContentView: View {
         fileURL: TangoData.mockURL,
         rawText: "ファイルが選ばれていません"
     )
-    
-    @State private var isImporting = false
+
     @State private var isShowingVersionAlert = false
+    @State private var isCheckingAnswers = false
+    @State private var isImporting = false
     @State private var isShowingExistingFileEditView = false
     @State private var isShowingNewFileEditView = false
 
@@ -29,7 +30,8 @@ struct ContentView: View {
             TabView {
                 TangoTestView(
                     tangoData: $nowEditingFile.tangoData,
-                    testType: .jp
+                    testType: .jp,
+                    isCheckingAnswers: $isCheckingAnswers
                 )
                 .tabItem {
                     Image(systemName: "j.circle.fill")
@@ -37,7 +39,8 @@ struct ContentView: View {
                 }
                 TangoTestView(
                     tangoData: $nowEditingFile.tangoData,
-                    testType: .en
+                    testType: .en,
+                    isCheckingAnswers: $isCheckingAnswers
                 )
                 .tabItem {
                     Image(systemName: "e.circle.fill")
@@ -104,11 +107,10 @@ private extension ContentView {
             .onTapGesture {
                 isShowingVersionAlert = true
             }
-            .alert(isPresented: $isShowingVersionAlert) {
-                Alert(
-                    title: Text("単語テストくん"),
-                    message: Text("\(appVersion)(\(appBuildNum))")
-                )
+            .alert("単語テストくん", isPresented: $isShowingVersionAlert) {
+                Button("OK") {}
+            } message: {
+                Text("\(appVersion) (\(appBuildNum))")
             }
     }
 
