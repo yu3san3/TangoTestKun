@@ -56,10 +56,12 @@ struct FileEditView: View {
                     contentType: .plainText,
                     defaultFilename: "新規ファイル"
                 ) { result in
-                    if case .success = result {
-                        print("正常に出力されました")
-                    } else {
-                        print("出力できませんでした")
+                    switch result {
+                    case .success(let url):
+                        nowEditingFile.fileURL = url
+                        nowEditingFile.rawText = textEditorContent
+                    case .failure(let error):
+                        print("出力できませんでした:\(error.localizedDescription)")
                     }
                     dismiss()
                 }
@@ -112,7 +114,8 @@ private extension FileEditView {
         Button(action: {
             switch editMode {
             case .existingFile:
-                saveExistingFile(textContent: textEditorContent)
+                nowEditingFile.rawText = textEditorContent
+                saveExistingFile()
                 dismiss()
             case .newFile:
                 isExporting = true
@@ -122,10 +125,9 @@ private extension FileEditView {
         }
     }
 
-    func saveExistingFile(textContent: String) {
+    func saveExistingFile() {
         let fileOperator = FileOperator()
-        nowEditingFile.rawText = textContent
-        fileOperator.writeFile(atPath: nowEditingFile.fileURL, content: textContent)
+        fileOperator.writeFile(atPath: nowEditingFile.fileURL, content: textEditorContent)
     }
 }
 

@@ -54,7 +54,7 @@ private extension TangoTestView {
         HStack(spacing: 0) {
             shuffleButton
             Divider()
-            showAnswersButton()
+            showAnswersButton
         }
         .cornerRadius(10)
         .overlay(
@@ -62,7 +62,7 @@ private extension TangoTestView {
                 .stroke(lineWidth: 0.5)
                 .foregroundColor(.blue)
         )
-        .frame(height: 17)
+        .frame(height: 10)
         .padding(.horizontal, 23)
         .padding(.vertical, 30)
     }
@@ -72,19 +72,18 @@ private extension TangoTestView {
             tangoData.shuffle()
         }) {
             Image(systemName: "shuffle")
-                .frame(width: 17, height: 17)
+                .frame(width: 13, height: 10)
                 .padding()
                 .background(Color(UIColor.systemBackground))
         }
     }
 
-    @ViewBuilder
-    private func showAnswersButton() -> some View {
+    var showAnswersButton: some View {
         Button(action: {
             isCheckingAnswers.toggle()
         }) {
             Image(systemName: isCheckingAnswers ? "pencil" : "pencil.slash")
-                .frame(width: 17, height: 17)
+                .frame(width: 13, height: 10)
                 .padding()
                 .foregroundColor(isCheckingAnswers ? .red : nil)
                 .background(Color(UIColor.systemBackground))
