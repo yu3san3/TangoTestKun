@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct TabContentView: View {
-    let tangoData: [TangoDataElement]
-    let isCheckingAnswers: Bool
+    @ObservedObject var tangoData: TangoData
+    @State private var isCheckingAnswers = false
     let testType: TestType
 
     var body: some View {
-        if tangoData.isEmpty {
+        if tangoData.tangoData.isEmpty {
             Text("単語データが選択されていません。")
                 .foregroundColor(.gray)
         } else {
@@ -22,33 +22,60 @@ struct TabContentView: View {
     }
 
     var testContentList: some View {
-        List(0..<tangoData.endIndex, id: \.self) { index in
-            HStack {
-                Image(systemName: "\(index+1).circle")
-                switch testType {
-                case .jp:
-                    Text(tangoData[index].jp)
-                    if isCheckingAnswers {
-                        Spacer()
-                        Text(tangoData[index].en)
+        ZStack(alignment: .bottomTrailing) {
+            List(0..<tangoData.tangoData.endIndex, id: \.self) { index in
+                HStack {
+                    Image(systemName: "\(index+1).circle")
+                    switch testType {
+                    case .jp:
+                        Text(tangoData.tangoData[index].jp)
+                        if isCheckingAnswers {
+                            Spacer()
+                            Text(tangoData.tangoData[index].en)
+                        }
+                    case .en:
+                        Text(tangoData.tangoData[index].en)
+                        if isCheckingAnswers {
+                            Spacer()
+                            Text(tangoData.tangoData[index].jp)
+                        }
                     }
-                case .en:
-                    Text(tangoData[index].en)
-                    if isCheckingAnswers {
-                        Spacer()
-                        Text(tangoData[index].jp)
-                    }
-                }
 
+                }
             }
+            .listStyle(.plain)
+            HStack {
+                shuffleButton
+                showAnswersToggle
+            }
+            .padding()
         }
-        .listStyle(.plain)
+    }
+
+    var shuffleButton: some View {
+        Button(action: {
+            tangoData.tangoData.shuffle()
+        }) {
+            Image(systemName: "shuffle")
+        }
+    }
+
+    var showAnswersToggle: some View {
+        Toggle(isOn: $isCheckingAnswers) {
+            Image(systemName: isCheckingAnswers ? "pencil" : "pencil.slash")
+        }
+        .toggleStyle(.button)
     }
 }
 
 struct TabContentView_Previews: PreviewProvider {
     static var previews: some View {
-        TabContentView(tangoData: TangoData.mockTangoData, isCheckingAnswers: false, testType: .jp)
+        let tangoData = TangoData(
+            tangoData: TangoData.mockTangoData,
+            fileURL: TangoData.mockURL,
+            rawText: TangoData.mockRawText
+        )
+        TabContentView(tangoData: tangoData, testType: .jp)
     }
 }
 

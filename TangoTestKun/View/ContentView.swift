@@ -19,7 +19,6 @@ struct ContentView: View {
     )
     
     @State private var isImporting = false
-    @State private var isCheckingAnswers = false
     @State private var isShowingAlert = false
     @State private var isShowingExistingFileEditView = false
     @State private var isShowingNewFileEditView = false
@@ -29,8 +28,6 @@ struct ContentView: View {
             HStack(spacing: 2) {
                 titleText
                 Spacer()
-                shuffleButton
-                showAnswersToggle
                 Menu {
                     importTangoFileButton
                     if !nowEditingFile.tangoData.isEmpty {
@@ -57,8 +54,7 @@ struct ContentView: View {
             .padding(.horizontal, 18)
             TabView {
                 TabContentView(
-                    tangoData: nowEditingFile.tangoData,
-                    isCheckingAnswers: isCheckingAnswers,
+                    tangoData: nowEditingFile,
                     testType: .jp
                 )
                 .tabItem {
@@ -66,8 +62,7 @@ struct ContentView: View {
                     Text("日本語")
                 }
                 TabContentView(
-                    tangoData: nowEditingFile.tangoData,
-                    isCheckingAnswers: isCheckingAnswers,
+                    tangoData: nowEditingFile,
                     testType: .en
                 )
                 .tabItem {
@@ -118,21 +113,6 @@ struct ContentView: View {
                     message: Text("\(appVersion)(\(appBuildNum))")
                 )
             }
-    }
-
-    var shuffleButton: some View {
-        Button(action: {
-            nowEditingFile.tangoData.shuffle()
-        }) {
-            Image(systemName: "shuffle")
-        }
-    }
-
-    var showAnswersToggle: some View {
-        Toggle(isOn: $isCheckingAnswers) {
-            Image(systemName: isCheckingAnswers ? "pencil" : "pencil.slash")
-        }
-        .toggleStyle(.button)
     }
 
     var importTangoFileButton: some View {
