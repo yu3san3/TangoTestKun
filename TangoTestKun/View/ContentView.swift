@@ -129,7 +129,7 @@ private extension ContentView {
         Button(action: {
             isImporting = true
         }) {
-            Label("読み込み", systemImage: "folder")
+            Label("読み込み", systemImage: "arrow.down.doc")
         }
     }
 
@@ -137,7 +137,7 @@ private extension ContentView {
         Button(action: {
             isShowingExistingFileEditView = true
         }) {
-            Label("編集", systemImage: "doc.text")
+            Label("編集", systemImage: "pencil")
         }
     }
 
