@@ -9,25 +9,23 @@ import Foundation
 
 class FileOperator {
     private let fileManager = FileManager.default
-    private let rootDirectory = NSHomeDirectory() + "/Documents"
 
-    func isFileExisting(atPath path: String) -> Bool {
-        return fileManager.fileExists(atPath: path)
+    func isFileExisting(atPath path: URL) -> Bool {
+        return fileManager.fileExists(atPath: path.path)
     }
 
     func createExampleFile() {
-        let path = rootDirectory + "/example.txt"
-        let contents = TangoData.mockRawText.data(using: .utf8)
-        createFile(atPath: path, contents: contents, allowSuperscription: true)
+        let path = FileOperator.rootDirectory.appendingPathComponent("example.txt")
+        createFile(atPath: path, content: TangoData.mockRawText, allowSuperscription: false)
     }
 
-    func createFile(atPath path: String, contents: Data?, allowSuperscription: Bool) {
+    func createFile(atPath path: URL, content: String, allowSuperscription: Bool) {
         if isFileExisting(atPath: path) && !allowSuperscription { //同名ファイルがある場合に上書きをしない
-            print("ファイルがすでに存在: \(NSString(string: path).lastPathComponent)")
+            print("ファイルがすでに存在: \(path.lastPathComponent)")
             return
         }
-        if !fileManager.createFile(atPath: path, contents: contents, attributes: nil) {
-            print("ファイル作成に失敗")
+        if !fileManager.createFile(atPath: path.path, contents: content.data(using: .utf8), attributes: nil) {
+            print("ファイル作成失敗")
         }
     }
 
@@ -38,4 +36,8 @@ class FileOperator {
             print("書き込み失敗: \(error.localizedDescription)")
         }
     }
+}
+
+extension FileOperator {
+    static let rootDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 }

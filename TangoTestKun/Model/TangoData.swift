@@ -27,7 +27,7 @@ class TangoData: ObservableObject {
 
 extension TangoData {
     static let mockTangoData = TangoParser.parse(mockRawText)
-    static let mockURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let mockURL = FileOperator.rootDirectory
     static let mockRawText = """
         起動する、開始する=launch
         意図=intent

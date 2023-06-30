@@ -9,7 +9,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 /// refs: https://www.hackingwithswift.com/quick-start/swiftui/how-to-export-files-using-fileexporter
-struct TangoFile: FileDocument {
+struct TextFile: FileDocument {
     // tell the system we support only plain text
     static var readableContentTypes = [UTType.plainText]
 

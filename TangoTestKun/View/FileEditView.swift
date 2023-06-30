@@ -52,7 +52,7 @@ struct FileEditView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .fileExporter(
                     isPresented: $isExporting,
-                    document: TangoFile(initialText: textEditorContent),
+                    document: TextFile(initialText: textEditorContent),
                     contentType: .plainText,
                     defaultFilename: "新規ファイル"
                 ) { result in
