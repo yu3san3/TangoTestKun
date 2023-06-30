@@ -48,13 +48,13 @@ struct FileEditView: View {
                         saveButton
                     }
                 }
-                .navigationTitle(nowEditingFile.fileURL.lastPathComponent) //ファイル名を取得
+                .navigationTitle(fileName)
                 .navigationBarTitleDisplayMode(.inline)
                 .fileExporter(
                     isPresented: $isExporting,
                     document: TangoFile(initialText: textEditorContent),
                     contentType: .plainText,
-                    defaultFilename: "NewFile"
+                    defaultFilename: "新規ファイル"
                 ) { result in
                     if case .success = result {
                         print("正常に出力されました")
@@ -68,6 +68,15 @@ struct FileEditView: View {
 }
 
 private extension FileEditView {
+    var fileName: String {
+        switch editMode {
+        case .existingFile:
+            return nowEditingFile.fileURL.lastPathComponent //ファイル名を取得
+        case .newFile:
+            return "新規ファイル"
+        }
+    }
+
     var textEditor: some View {
         TextEditor(text: $textEditorContent)
             .focused($isEditing)

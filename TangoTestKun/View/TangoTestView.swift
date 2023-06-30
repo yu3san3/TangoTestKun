@@ -63,7 +63,7 @@ private extension TangoTestView {
                 .foregroundColor(.blue)
         )
         .frame(height: 17)
-        .padding(.horizontal)
+        .padding(.horizontal, 23)
         .padding(.vertical, 30)
     }
 
