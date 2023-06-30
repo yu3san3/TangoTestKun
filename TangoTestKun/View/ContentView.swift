@@ -54,7 +54,7 @@ struct ContentView: View {
             .padding(.horizontal, 18)
             TabView {
                 TabContentView(
-                    tangoData: nowEditingFile,
+                    tangoData: $nowEditingFile.tangoData,
                     testType: .jp
                 )
                 .tabItem {
@@ -62,7 +62,7 @@ struct ContentView: View {
                     Text("日本語")
                 }
                 TabContentView(
-                    tangoData: nowEditingFile,
+                    tangoData: $nowEditingFile.tangoData,
                     testType: .en
                 )
                 .tabItem {
@@ -101,7 +101,7 @@ struct ContentView: View {
         nowEditingFile.tangoData = TangoParser.parse(nowEditingFile.rawText)
     }
 
-    var titleText: some View {
+    private var titleText: some View {
         Text("単語テストくん")
             .bold()
             .onTapGesture {
@@ -115,7 +115,7 @@ struct ContentView: View {
             }
     }
 
-    var importTangoFileButton: some View {
+    private var importTangoFileButton: some View {
         Button(action: {
             isImporting = true
         }) {
@@ -123,7 +123,7 @@ struct ContentView: View {
         }
     }
 
-    var editExistingFileButton: some View {
+    private var editExistingFileButton: some View {
         Button(action: {
             isShowingExistingFileEditView = true
         }) {
@@ -131,7 +131,7 @@ struct ContentView: View {
         }
     }
 
-    var createNewFileButton: some View {
+    private var createNewFileButton: some View {
         Button(action: {
             isShowingNewFileEditView = true
         }) {
