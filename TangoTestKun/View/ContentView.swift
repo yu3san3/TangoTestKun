@@ -13,7 +13,6 @@ let appBuildNum = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
 struct ContentView: View {
 
     @StateObject var nowEditingFile = TangoFile(
-        tangoData: [],
         fileURL: TangoFile.mockURL,
         rawText: "ファイルが選ばれていません"
     )
@@ -75,7 +74,6 @@ struct ContentView: View {
     private func setNowEditingFile(from selectedFileURL: URL) throws {
         nowEditingFile.fileURL = selectedFileURL
         nowEditingFile.rawText = try String(contentsOf: selectedFileURL)
-        nowEditingFile.tangoData = TangoParser.parse(nowEditingFile.rawText)
     }
 }
 

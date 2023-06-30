@@ -113,6 +113,7 @@ private extension FileEditView {
             switch editMode {
             case .existingFile:
                 saveExistingFile(textContent: textEditorContent)
+                dismiss()
             case .newFile:
                 isExporting = true
             }
@@ -124,7 +125,6 @@ private extension FileEditView {
     func saveExistingFile(textContent: String) {
         let fileOperator = FileOperator()
         nowEditingFile.rawText = textContent
-        nowEditingFile.tangoData = TangoParser.parse(textContent)
         fileOperator.writeFile(atPath: nowEditingFile.fileURL, content: textContent)
     }
 }
@@ -132,7 +132,6 @@ private extension FileEditView {
 struct DocEditView_Previews: PreviewProvider {
     static var previews: some View {
         let tangoFile = TangoFile(
-            tangoData: TangoFile.mockTangoData,
             fileURL: TangoFile.mockURL,
             rawText: TangoFile.mockRawText
         )

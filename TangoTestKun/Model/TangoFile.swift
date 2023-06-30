@@ -8,18 +8,20 @@
 import Foundation
 
 class TangoFile: ObservableObject {
-    @Published var tangoData: [TangoDataElement]
+    @Published var tangoData: [TangoDataElement] = []
     @Published var fileURL: URL
-    @Published var rawText: String
+    @Published var rawText: String {
+        didSet {
+            tangoData = TangoParser.parse(rawText)
+        }
+    }
 
-    init(tangoData: [TangoDataElement], fileURL: URL, rawText: String) {
-        self.tangoData = tangoData
+    init(fileURL: URL, rawText: String) {
         self.fileURL = fileURL
         self.rawText = rawText
     }
 
     init() {
-        self.tangoData = []
         self.fileURL = TangoFile.mockURL
         self.rawText = ""
     }
