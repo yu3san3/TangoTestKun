@@ -25,33 +25,7 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            HStack(spacing: 2) {
-                titleText
-                Spacer()
-                Menu {
-                    importTangoFileButton
-                    if !nowEditingFile.tangoData.isEmpty {
-                        editExistingFileButton
-                    }
-                    createNewFileButton
-                } label: {
-                    Label("フォルダ", systemImage: "folder")
-                        .labelStyle(.iconOnly)
-                }
-                .sheet(
-                    isPresented: $isShowingExistingFileEditView,
-                    content: {
-                        FileEditView(tangoData: nowEditingFile)
-                    }
-                )
-                .sheet(
-                    isPresented: $isShowingNewFileEditView,
-                    content: {
-                        FileEditView()
-                    }
-                )
-            }
-            .padding(.horizontal, 18)
+            header
             TabView {
                 TabContentView(
                     tangoData: $nowEditingFile.tangoData,
@@ -101,6 +75,27 @@ struct ContentView: View {
         nowEditingFile.tangoData = TangoParser.parse(nowEditingFile.rawText)
     }
 
+    private var header: some View {
+        HStack {
+            titleText
+            Spacer()
+            fileMenu
+            .sheet(
+                isPresented: $isShowingExistingFileEditView,
+                content: {
+                    FileEditView(tangoData: nowEditingFile)
+                }
+            )
+            .sheet(
+                isPresented: $isShowingNewFileEditView,
+                content: {
+                    FileEditView()
+                }
+            )
+        }
+        .padding(.horizontal, 18)
+    }
+
     private var titleText: some View {
         Text("単語テストくん")
             .bold()
@@ -113,6 +108,19 @@ struct ContentView: View {
                     message: Text("\(appVersion)(\(appBuildNum))")
                 )
             }
+    }
+
+    private var fileMenu: some View {
+        Menu {
+            importTangoFileButton
+            if !nowEditingFile.tangoData.isEmpty {
+                editExistingFileButton
+            }
+            createNewFileButton
+        } label: {
+            Label("フォルダ", systemImage: "folder")
+                .labelStyle(.iconOnly)
+        }
     }
 
     private var importTangoFileButton: some View {
