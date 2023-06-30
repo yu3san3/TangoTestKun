@@ -86,13 +86,13 @@ private extension ContentView {
             .sheet(
                 isPresented: $isShowingExistingFileEditView,
                 content: {
-                    FileEditView(tangoFile: nowEditingFile)
+                    FileEditView(tangoFile: nowEditingFile, editMode: .existingFile)
                 }
             )
             .sheet(
                 isPresented: $isShowingNewFileEditView,
                 content: {
-                    FileEditView()
+                    FileEditView(tangoFile: nowEditingFile, editMode: .newFile)
                 }
             )
         }

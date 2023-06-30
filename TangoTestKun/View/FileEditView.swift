@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-enum EditMode {
-    case existingFile
-    case newFile
-}
-
 struct FileEditView: View {
     let editMode: EditMode
     @ObservedObject var nowEditingFile: TangoFile
@@ -23,18 +18,17 @@ struct FileEditView: View {
 
     @Environment(\.dismiss) var dismiss
 
-    init(tangoFile: TangoFile) {
-        self.editMode = .existingFile
-        self.nowEditingFile = tangoFile
-        self._textEditorContent = State(initialValue: tangoFile.rawText)
-    }
-
-    init() {
-        let newTangoFile = TangoFile()
-
-        self.editMode = .newFile
-        self.nowEditingFile = newTangoFile
-        self._textEditorContent = State(initialValue: "")
+    init(tangoFile: TangoFile, editMode: EditMode) {
+        switch editMode {
+        case .existingFile:
+            self.editMode = editMode
+            self.nowEditingFile = tangoFile
+            self._textEditorContent = State(initialValue: tangoFile.rawText)
+        case .newFile:
+            self.editMode = editMode
+            self.nowEditingFile = tangoFile
+            self._textEditorContent = State(initialValue: "")
+        }
     }
 
     var body: some View {
@@ -137,6 +131,6 @@ struct DocEditView_Previews: PreviewProvider {
             fileURL: TangoFile.mockURL,
             rawText: TangoFile.mockRawText
         )
-        FileEditView(tangoFile: tangoFile)
+        FileEditView(tangoFile: tangoFile, editMode: .existingFile)
     }
 }
