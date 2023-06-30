@@ -84,11 +84,16 @@ private extension FileEditView {
                     }
                 }
             }
+            .onAppear {
+                if editMode == .newFile {
+                    isEditing = true
+                }
+            }
     }
 
     var cancelButton: some View {
         Button(action: {
-            guard textEditorContent != nowEditingFile.rawText else {
+            if !hasChanges() {
                 dismiss()
                 return
             }
@@ -102,6 +107,20 @@ private extension FileEditView {
         } message: {
             Text("「はい」を押すと、今までの編集内容は保存されません。")
         }
+    }
+
+    func hasChanges() -> Bool {
+        switch editMode {
+        case .existingFile:
+            if textEditorContent != nowEditingFile.rawText {
+                return true
+            }
+        case .newFile:
+            if textEditorContent != "" {
+                return true
+            }
+        }
+        return false
     }
 
     var saveButton: some View {

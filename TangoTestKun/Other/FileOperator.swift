@@ -15,7 +15,7 @@ class FileOperator {
     }
 
     func createExampleFile() {
-        let path = FileOperator.rootDirectory.appendingPathComponent("example.txt")
+        let path = FileOperator.rootDirectory.appendingPathComponent("sample.txt")
         createFile(atPath: path, content: TangoFile.mockRawText, allowSuperscription: false)
     }
 
