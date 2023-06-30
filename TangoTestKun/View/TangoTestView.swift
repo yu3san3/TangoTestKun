@@ -95,7 +95,7 @@ private extension TangoTestView {
 struct TabContentView_Previews: PreviewProvider {
     static var previews: some View {
         TangoTestView(
-            tangoData: .constant(TangoData.mockTangoData),
+            tangoData: .constant(TangoFile.mockTangoData),
             testType: .jp,
             isCheckingAnswers: .constant(false)
         )

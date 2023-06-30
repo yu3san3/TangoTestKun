@@ -16,7 +16,7 @@ class FileOperator {
 
     func createExampleFile() {
         let path = FileOperator.rootDirectory.appendingPathComponent("example.txt")
-        createFile(atPath: path, content: TangoData.mockRawText, allowSuperscription: false)
+        createFile(atPath: path, content: TangoFile.mockRawText, allowSuperscription: false)
     }
 
     func createFile(atPath path: URL, content: String, allowSuperscription: Bool) {

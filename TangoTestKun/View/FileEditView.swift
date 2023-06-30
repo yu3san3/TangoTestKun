@@ -14,7 +14,7 @@ enum EditMode {
 
 struct FileEditView: View {
     let editMode: EditMode
-    @ObservedObject var nowEditingFile: TangoData
+    @ObservedObject var nowEditingFile: TangoFile
     @State private var textEditorContent: String
 
     @State private var isExporting = false
@@ -23,17 +23,17 @@ struct FileEditView: View {
 
     @Environment(\.dismiss) var dismiss
 
-    init(tangoData: TangoData) {
+    init(tangoFile: TangoFile) {
         self.editMode = .existingFile
-        self.nowEditingFile = tangoData
-        self._textEditorContent = State(initialValue: tangoData.rawText)
+        self.nowEditingFile = tangoFile
+        self._textEditorContent = State(initialValue: tangoFile.rawText)
     }
 
     init() {
-        let newTangoData = TangoData()
+        let newTangoFile = TangoFile()
 
         self.editMode = .newFile
-        self.nowEditingFile = newTangoData
+        self.nowEditingFile = newTangoFile
         self._textEditorContent = State(initialValue: "")
     }
 
@@ -131,11 +131,11 @@ private extension FileEditView {
 
 struct DocEditView_Previews: PreviewProvider {
     static var previews: some View {
-        let tangoData = TangoData(
-            tangoData: TangoData.mockTangoData,
-            fileURL: TangoData.mockURL,
-            rawText: TangoData.mockRawText
+        let tangoFile = TangoFile(
+            tangoData: TangoFile.mockTangoData,
+            fileURL: TangoFile.mockURL,
+            rawText: TangoFile.mockRawText
         )
-        FileEditView(tangoData: tangoData)
+        FileEditView(tangoFile: tangoFile)
     }
 }

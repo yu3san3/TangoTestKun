@@ -12,9 +12,9 @@ let appBuildNum = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
 
 struct ContentView: View {
 
-    @StateObject var nowEditingFile = TangoData(
+    @StateObject var nowEditingFile = TangoFile(
         tangoData: [],
-        fileURL: TangoData.mockURL,
+        fileURL: TangoFile.mockURL,
         rawText: "ファイルが選ばれていません"
     )
 
@@ -88,7 +88,7 @@ private extension ContentView {
             .sheet(
                 isPresented: $isShowingExistingFileEditView,
                 content: {
-                    FileEditView(tangoData: nowEditingFile)
+                    FileEditView(tangoFile: nowEditingFile)
                 }
             )
             .sheet(

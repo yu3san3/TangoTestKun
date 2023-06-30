@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TangoData: ObservableObject {
+class TangoFile: ObservableObject {
     @Published var tangoData: [TangoDataElement]
     @Published var fileURL: URL
     @Published var rawText: String
@@ -20,12 +20,12 @@ class TangoData: ObservableObject {
 
     init() {
         self.tangoData = []
-        self.fileURL = TangoData.mockURL
+        self.fileURL = TangoFile.mockURL
         self.rawText = ""
     }
 }
 
-extension TangoData {
+extension TangoFile {
     static let mockTangoData = TangoParser.parse(mockRawText)
     static let mockURL = FileOperator.rootDirectory
     static let mockRawText = """
