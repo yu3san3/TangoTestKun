@@ -55,7 +55,7 @@ struct FileEditView: View {
                         nowEditingFile.fileURL = url
                         nowEditingFile.rawText = textEditorContent
                     case .failure(let error):
-                        print("出力できませんでした:\(error.localizedDescription)")
+                        print("❗️書き出し失敗\(error.localizedDescription)")
                     }
                     dismiss()
                 }

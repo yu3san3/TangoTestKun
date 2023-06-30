@@ -25,7 +25,7 @@ class FileOperator {
             return
         }
         if !fileManager.createFile(atPath: path.path, contents: content.data(using: .utf8), attributes: nil) {
-            print("ファイル作成失敗")
+            print("❗️ファイル作成失敗")
         }
     }
 
@@ -33,7 +33,7 @@ class FileOperator {
         do {
             try content.write(to: path, atomically: true, encoding: .utf8)
         } catch {
-            print("書き込み失敗: \(error.localizedDescription)")
+            print("❗️書き込み失敗: \(error.localizedDescription)")
         }
     }
 }
