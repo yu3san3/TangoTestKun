@@ -19,7 +19,7 @@ struct ContentView: View {
     )
     
     @State private var isImporting = false
-    @State private var isShowingAlert = false
+    @State private var isShowingVersionAlert = false
     @State private var isShowingExistingFileEditView = false
     @State private var isShowingNewFileEditView = false
 
@@ -102,9 +102,9 @@ private extension ContentView {
         Text("単語テストくん")
             .bold()
             .onTapGesture {
-                isShowingAlert = true
+                isShowingVersionAlert = true
             }
-            .alert(isPresented: $isShowingAlert) {
+            .alert(isPresented: $isShowingVersionAlert) {
                 Alert(
                     title: Text("単語テストくん"),
                     message: Text("\(appVersion)(\(appBuildNum))")

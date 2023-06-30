@@ -74,21 +74,20 @@ private extension TangoTestView {
             Image(systemName: "shuffle")
                 .frame(width: 17, height: 17)
                 .padding()
+                .background(Color(UIColor.systemBackground))
         }
     }
 
     @ViewBuilder
     private func showAnswersButton() -> some View {
-        let backGroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.1)
         Button(action: {
             isCheckingAnswers.toggle()
         }) {
             Image(systemName: isCheckingAnswers ? "pencil" : "pencil.slash")
                 .frame(width: 17, height: 17)
                 .padding()
-                .background(
-                    isCheckingAnswers ? Color(backGroundColor) : Color.clear
-                )
+                .foregroundColor(isCheckingAnswers ? .red : nil)
+                .background(Color(UIColor.systemBackground))
         }
     }
 }
