@@ -8,13 +8,13 @@
 import Foundation
 
 class TangoParser {
-    static func parse(_ text: String) -> [TangoData] {
+    static func parse(_ text: String) -> [TangoDataElement] {
         
-        var result: [TangoData] = []
-        result.append(TangoData(jp: "", en: ""))
+        var result: [TangoDataElement] = []
+        result.append(TangoDataElement(jp: "", en: ""))
         
         for lineRow in text.components(separatedBy: .newlines) { //textを1行づつ処理
-            result.append(TangoData(jp: "", en: ""))
+            result.append(TangoDataElement(jp: "", en: ""))
             let tangoCount: Int = (result.endIndex-1)-1 //配列内の編集すべきインデックスを示す
             let line: String = lineRow.trimmingCharacters(in: .whitespaces) //行の端にある空白を削除
             if line == "" {
