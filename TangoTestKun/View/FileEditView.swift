@@ -15,8 +15,6 @@ enum EditMode {
 struct FileEditView: View {
     @ObservedObject var nowEditingFile: TangoData
 
-    let fileOperator = FileOperator()
-
     @State var isExporting: Bool = false
     @State var textEditorContent: String = ""
     @FocusState private var isEditing: Bool
@@ -91,7 +89,7 @@ struct FileEditView: View {
         Button(action: {
             switch editMode {
             case .existingFile:
-                saveExistingFile()
+                saveExistingFile(textContent: textEditorContent)
             case .newFile:
                 isExporting = true
             }
@@ -100,10 +98,11 @@ struct FileEditView: View {
         }
     }
 
-    private func saveExistingFile() {
-        nowEditingFile.rawText = textEditorContent
-        nowEditingFile.tangoData = TangoParser.parse(textEditorContent)
-        fileOperator.writeFile(atPath: nowEditingFile.fileURL, content: textEditorContent)
+    private func saveExistingFile(textContent: String) {
+        let fileOperator = FileOperator()
+        nowEditingFile.rawText = textContent
+        nowEditingFile.tangoData = TangoParser.parse(textContent)
+        fileOperator.writeFile(atPath: nowEditingFile.fileURL, content: textContent)
     }
 }
 

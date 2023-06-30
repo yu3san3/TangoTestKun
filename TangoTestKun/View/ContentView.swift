@@ -23,7 +23,7 @@ struct ContentView: View {
     @State private var isShowingAlert = false
     @State private var isShowingFileEditView = false
     @State private var isShowingNewFileEditView = false
-    
+
     var body: some View {
         VStack {
             HStack(spacing: 2) {
@@ -68,6 +68,10 @@ struct ContentView: View {
                     Text("英語")
                 }
             }
+        }
+        .onAppear {
+            let fileOperator = FileOperator()
+            fileOperator.createExampleFile()
         }
         .fileImporter(
             isPresented: $isImporting,
