@@ -27,7 +27,7 @@ struct ContentView: View {
         VStack {
             header
             TabView {
-                TabContentView(
+                TangoTestView(
                     tangoData: $nowEditingFile.tangoData,
                     testType: .jp
                 )
@@ -35,7 +35,7 @@ struct ContentView: View {
                     Image(systemName: "j.circle.fill")
                     Text("日本語")
                 }
-                TabContentView(
+                TangoTestView(
                     tangoData: $nowEditingFile.tangoData,
                     testType: .en
                 )

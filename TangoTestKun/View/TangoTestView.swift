@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TabContentView: View {
+struct TangoTestView: View {
     @Binding var tangoData: [TangoDataElement]
     @State private var isCheckingAnswers = false
     let testType: TestType
@@ -93,7 +93,7 @@ struct TabContentView: View {
 
 struct TabContentView_Previews: PreviewProvider {
     static var previews: some View {
-        TabContentView(tangoData: .constant(TangoData.mockTangoData), testType: .jp)
+        TangoTestView(tangoData: .constant(TangoData.mockTangoData), testType: .jp)
     }
 }
 
