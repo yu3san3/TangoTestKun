@@ -49,7 +49,7 @@ struct ContentView: View {
         }
         .onAppear {
             let fileOperator = FileOperator()
-            fileOperator.createExampleFile()
+            fileOperator.createSampleFile()
         }
         .fileImporter(
             isPresented: $isImporting,

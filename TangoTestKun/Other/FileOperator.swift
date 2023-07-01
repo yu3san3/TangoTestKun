@@ -14,12 +14,15 @@ class FileOperator {
         return fileManager.fileExists(atPath: path.path)
     }
 
-    func createExampleFile() {
-        if let path = FileOperator.iCloudRootDirectory?.appendingPathComponent("sample.txt") {
-            createFile(atPath: path, content: TangoFile.mockRawText, allowSuperscription: false)
-        } else {
-            print("❗️iCloudへの書き込みに失敗")
+    func createSampleFile() {
+        if let iCloudPath = FileOperator.iCloudRootDirectory?.appendingPathComponent("sample.txt") {
+            print("iCloudへsample.txtを作成")
+            createFile(atPath: iCloudPath, content: TangoFile.mockRawText, allowSuperscription: false)
+            return
         }
+        let localPath = FileOperator.localRootDirectory.appendingPathComponent("sample.txt")
+        print("localへsample.txtを作成")
+        createFile(atPath: localPath, content: TangoFile.mockRawText, allowSuperscription: false)
     }
 
     func createFile(atPath path: URL, content: String, allowSuperscription: Bool) {
