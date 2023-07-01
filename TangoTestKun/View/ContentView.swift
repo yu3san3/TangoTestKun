@@ -96,12 +96,14 @@ private extension ContentView {
                 }
             )
         }
-        .padding(.horizontal, 18)
+        .padding(.horizontal, 10)
     }
 
     var titleText: some View {
         Text("単語テストくん")
             .bold()
+            .padding(.vertical, 5)
+            .padding(.horizontal, 10)
             .onTapGesture {
                 isShowingVersionAlert = true
             }
@@ -122,6 +124,8 @@ private extension ContentView {
         } label: {
             Label("フォルダ", systemImage: "folder")
                 .labelStyle(.iconOnly)
+                .padding(.vertical, 7)
+                .padding(.horizontal, 14)
         }
     }
 
