@@ -17,25 +17,18 @@ class FileOperator {
     func createSampleFile() {
         if let iCloudPath = FileOperator.iCloudRootDirectory?.appendingPathComponent("sample.txt") {
             print("iCloudへsample.txtを作成")
-            createFile(atPath: iCloudPath, content: TangoFile.mockRawText, allowSuperscription: false)
-            return
+            writeFile(atPath: iCloudPath, content: TangoFile.mockRawText, allowSuperscription: false)
         }
         let localPath = FileOperator.localRootDirectory.appendingPathComponent("sample.txt")
         print("localへsample.txtを作成")
-        createFile(atPath: localPath, content: TangoFile.mockRawText, allowSuperscription: false)
+        writeFile(atPath: localPath, content: TangoFile.mockRawText, allowSuperscription: false)
     }
 
-    func createFile(atPath path: URL, content: String, allowSuperscription: Bool) {
-        if isFileExisting(atPath: path) && !allowSuperscription { //同名ファイルがある場合に上書きをしない
+    func writeFile(atPath path: URL, content: String, allowSuperscription: Bool) {
+        if !allowSuperscription && isFileExisting(atPath: path) { //同名ファイルがある場合に上書きをしない
             print("ファイルがすでに存在: \(path.lastPathComponent)")
             return
         }
-        if !fileManager.createFile(atPath: path.path, contents: content.data(using: .utf8), attributes: nil) {
-            print("❗️ファイル作成失敗")
-        }
-    }
-
-    func writeFile(atPath path: URL, content: String) {
         do {
             try content.write(to: path, atomically: true, encoding: .utf8)
         } catch {

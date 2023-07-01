@@ -327,7 +327,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"TangoTestKun/Preview Content\"";
 				DEVELOPMENT_TEAM = VXRZ4F779B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -351,8 +351,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
-				MARKETING_VERSION = "Alpha 1.2.0 Beta 1";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yu3san3.TangoTestKun;
+				MARKETING_VERSION = "Alpha 1.2.0 Beta 2";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yu3san3.test.TangoTestKun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
@@ -374,7 +374,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"TangoTestKun/Preview Content\"";
 				DEVELOPMENT_TEAM = VXRZ4F779B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -398,8 +398,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
-				MARKETING_VERSION = "Alpha 1.2.0 Beta 1";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yu3san3.TangoTestKun;
+				MARKETING_VERSION = "Alpha 1.2.0 Beta 2";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yu3san3.test.TangoTestKun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;

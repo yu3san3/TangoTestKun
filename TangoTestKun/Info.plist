@@ -20,6 +20,18 @@
 		</dict>
 		<dict/>
 	</array>
+	<key>NSUbiquitousContainers</key>
+	<dict>
+		<key>iCloud.com.yu3san3.test.TangoTestKun</key>
+		<dict>
+			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
+			<true/>
+			<key>NSUbiquitousContainerName</key>
+			<string>単語テストくん</string>
+			<key>NSUbiquitousContainerSupportedFolderLevels</key>
+			<string>Any</string>
+		</dict>
+	</dict>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UTExportedTypeDeclarations</key>
@@ -54,17 +66,5 @@
 			</dict>
 		</dict>
 	</array>
-	<key>NSUbiquitousContainers</key>
-	<dict>
-		<key>iCloud.com.yu3san3.TangoTestKun</key>
-		<dict>
-			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
-			<true/>
-			<key>NSUbiquitousContainerName</key>
-			<string>単語テストくん</string>
-			<key>NSUbiquitousContainerSupportedFolderLevels</key>
-			<string>Any</string>
-		</dict>
-	</dict>
 </dict>
 </plist>

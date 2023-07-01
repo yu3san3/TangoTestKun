@@ -140,7 +140,7 @@ private extension FileEditView {
 
     func saveExistingFile() {
         let fileOperator = FileOperator()
-        fileOperator.writeFile(atPath: nowEditingFile.fileURL, content: textEditorContent)
+        fileOperator.writeFile(atPath: nowEditingFile.fileURL, content: textEditorContent, allowSuperscription: true)
     }
 }
 
