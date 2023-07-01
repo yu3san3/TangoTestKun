@@ -48,7 +48,7 @@ struct FileEditView: View {
                     isPresented: $isExporting,
                     document: TextFile(initialText: textEditorContent),
                     contentType: .plainText,
-                    defaultFilename: "新規ファイル"
+                    defaultFilename: fileName
                 ) { result in
                     switch result {
                     case .success(let url):
@@ -125,14 +125,7 @@ private extension FileEditView {
 
     var saveButton: some View {
         Button(action: {
-            switch editMode {
-            case .existingFile:
-                nowEditingFile.rawText = textEditorContent
-                saveExistingFile()
-                dismiss()
-            case .newFile:
-                isExporting = true
-            }
+            isExporting = true
         }) {
             Text("保存")
         }
