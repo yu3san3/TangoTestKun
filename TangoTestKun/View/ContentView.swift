@@ -51,15 +51,10 @@ struct ContentView: View {
             let fileOperator = FileOperator()
             fileOperator.createSampleFile()
         }
-        .fileImporter(
-            isPresented: $isImporting,
-            allowedContentTypes: [.plainText],
-            allowsMultipleSelection: false
-        ) { result in
+        .documentPicker(
+            isPresented: $isImporting
+        ) { selectedFileURL in
             do {
-                guard let selectedFileURL: URL = try result.get().first else {
-                    return
-                }
                 guard selectedFileURL.startAccessingSecurityScopedResource() else {
                     return
                 }

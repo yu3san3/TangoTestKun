@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EB4981192A4DDB390048DDF8 /* TextFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4981182A4DDB390048DDF8 /* TextFile.swift */; };
 		EB49811C2A4F4E6C0048DDF8 /* EditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB49811B2A4F4E6C0048DDF8 /* EditMode.swift */; };
+		EB6431AA2A506E5F0068E0FD /* DocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6431A92A506E5F0068E0FD /* DocumentPickerView.swift */; };
 		EB64B99F2A483169002F806E /* FileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64B99E2A483169002F806E /* FileEditView.swift */; };
 		EB64B9A12A485CAF002F806E /* FileOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64B9A02A485CAF002F806E /* FileOperator.swift */; };
 		EB64B9A52A487660002F806E /* TangoFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64B9A42A487660002F806E /* TangoFile.swift */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		EB4981182A4DDB390048DDF8 /* TextFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFile.swift; sourceTree = "<group>"; };
 		EB49811B2A4F4E6C0048DDF8 /* EditMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMode.swift; sourceTree = "<group>"; };
+		EB6431A92A506E5F0068E0FD /* DocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerView.swift; sourceTree = "<group>"; };
 		EB64B99E2A483169002F806E /* FileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileEditView.swift; sourceTree = "<group>"; };
 		EB64B9A02A485CAF002F806E /* FileOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileOperator.swift; sourceTree = "<group>"; };
 		EB64B9A42A487660002F806E /* TangoFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TangoFile.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				EBF15BC42998D783001F63AD /* ContentView.swift */,
+				EB6431A92A506E5F0068E0FD /* DocumentPickerView.swift */,
 				EBACC75C2A4C871200C1A1D1 /* TangoTestView.swift */,
 				EB64B99E2A483169002F806E /* FileEditView.swift */,
 			);
@@ -199,6 +202,7 @@
 				EB49811C2A4F4E6C0048DDF8 /* EditMode.swift in Sources */,
 				EB64B9A12A485CAF002F806E /* FileOperator.swift in Sources */,
 				EB4981192A4DDB390048DDF8 /* TextFile.swift in Sources */,
+				EB6431AA2A506E5F0068E0FD /* DocumentPickerView.swift in Sources */,
 				EBACC75D2A4C871200C1A1D1 /* TangoTestView.swift in Sources */,
 				EB64B9A52A487660002F806E /* TangoFile.swift in Sources */,
 				EBF15BC32998D783001F63AD /* TangoTestKunApp.swift in Sources */,
@@ -352,7 +356,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
 				MARKETING_VERSION = "Alpha 1.2.0 Beta 2";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yu3san3.test.TangoTestKun;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yu3san3.test2.TangoTestKun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
@@ -399,7 +403,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
 				MARKETING_VERSION = "Alpha 1.2.0 Beta 2";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yu3san3.test.TangoTestKun;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yu3san3.test2.TangoTestKun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
