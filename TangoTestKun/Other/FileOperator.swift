@@ -14,9 +14,15 @@ class FileOperator {
         return fileManager.fileExists(atPath: path.path)
     }
 
-    func createExampleFile() {
-        let path = FileOperator.rootDirectory.appendingPathComponent("sample.txt")
-        createFile(atPath: path, content: TangoFile.mockRawText, allowSuperscription: false)
+    func createSampleFile() {
+        if let iCloudPath = FileOperator.iCloudRootDirectory?.appendingPathComponent("sample.txt") {
+            print("iCloudへsample.txtを作成")
+            createFile(atPath: iCloudPath, content: TangoFile.mockRawText, allowSuperscription: false)
+            return
+        }
+        let localPath = FileOperator.localRootDirectory.appendingPathComponent("sample.txt")
+        print("localへsample.txtを作成")
+        createFile(atPath: localPath, content: TangoFile.mockRawText, allowSuperscription: false)
     }
 
     func createFile(atPath path: URL, content: String, allowSuperscription: Bool) {
@@ -39,5 +45,6 @@ class FileOperator {
 }
 
 extension FileOperator {
-    static let rootDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let localRootDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let iCloudRootDirectory = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
 }

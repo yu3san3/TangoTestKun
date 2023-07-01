@@ -29,7 +29,7 @@ class TangoFile: ObservableObject {
 
 extension TangoFile {
     static let mockTangoData = TangoParser.parse(mockRawText)
-    static let mockURL = FileOperator.rootDirectory
+    static let mockURL = FileOperator.localRootDirectory
     static let mockRawText = """
     起動する、開始する=launch
     意図=intent
