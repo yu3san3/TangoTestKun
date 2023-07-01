@@ -131,6 +131,7 @@ private extension FileEditView {
         }
     }
 
+    @available(*, deprecated, message: "ファイルを書き出す際にはfileExporterを使おう")
     func saveExistingFile() {
         let fileOperator = FileOperator()
         fileOperator.writeFile(atPath: nowEditingFile.fileURL, content: textEditorContent, allowSuperscription: true)
